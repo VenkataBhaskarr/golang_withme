@@ -16,6 +16,20 @@ func main() {
 	// rune // alias for int32
 	// float32 float64
 	// complex64 complex128
+	onenewSlice := make([]int, 5)
+	fmt.Println(onenewSlice, len(onenewSlice), cap(onenewSlice))
+
+	//lets create slices of slices
+
+	slicesOfSlices := [][]string{
+		[]string{"a", "b", "c"},
+		[]string{"d", "e", "f"},
+		[]string{"g", "h", "i"},
+	}
+
+	for i := 0; i < len(slicesOfSlices); i++ {
+		fmt.Println(strings.Join(slicesOfSlices[i], " "))
+	}
 	println(Pi)
 	// type conversions
 	bhaskar := "hero"
