@@ -47,6 +47,65 @@ func main() {
 	//variables with initilizers so that we can omit the type
 	var i, j, k = 1, 2, 3
 	println(i, j, k)
+
+	// Now lets see how to create a server in golang 
+	// before jumping straight into it lets see what is the underlying concept behind creating http servers in general
+	// there will be a mulitplexer/router that sits infront of server and routes the incoming requests to specific routes registered to the multilpexer/router
+	// You can consider express as a multiplexer for NodeJS HTTP server
+	// In golang there is a struct called as ServeMux in http package which is the inbuilt implementation of multiplexer/router
+
+	mux := http.NewServeMux{}
+
+	// now define the functions which will handle the routes
+
+	function firstRouteHandler(w http.Response,r *http.RequestHandler){
+	// handle the request and send the response
+	}
+
+	function secondRouteHandler(...){
+	// handle the request	
+	}
+
+	function secondPostRouterHandler(...){
+		if r.Method != http.MethodPost{
+			fmt.Println("err")
+			return
+		}
+	}
+
+	// by default mux register handle get request only
+	mux.HandleFunc("/first" , firstRouteHandler)
+	mux.HandleFunc("/second" , secondRouteHandler)
+        // in order to handle Post request also
+	mux.HandleFunc("/second" , secondPostRouteHandler)
+	// create the server and run it
+
+	err := http.ListenAndServe(PORT , mux)
+	if(err != nil){
+		fmt.Prrintln("error starting the server")
+	}
+
+
+	// now we will see how to use middlewares in golang
+        // middlewares are the functions which are executed right before the request is handled or very next the response is sent
+	// mainly used for authentications, tokens , cookies things like that 
+
+	function middleWareWrapping(next Http.Handler) http.Handler{
+		return http.HandlerFunc(func(w ,r){
+			// implement middleware logic for handling request
+                           next.ServeHTTP(w,r)
+			
+		})
+		
+	}
+
+	function thirdRouteHandler(...){
+	}
+
+	wrappedThirdRouteHandler := middleWareWrapping(thirdRouteHandler)
+
+	mux.HandleFunc("/third" , wrappedThirdRouteHandler)
+	
 }
 
 // function demonstrating how the return works in go
