@@ -74,3 +74,29 @@ func main() {
 }
 ```
 
+## what are channels ?
+
+Intraditional programming when we create threads in order to establish communication and synchronization we should folllow some lpw level programming constructs such aas locks, mutexes to the shared memory, deadlocks and thinds in order to ensure thread safety, wheraes in golang channels are the way which are inbuilt uses synchronization methods such that it will ellows us to focus on code rather than all those low level concepts for synchronization and communication.
+
+because in channels the channel waits until there is recieveing side/accepting side hence remaing go routines can't access that channel
+maintaing sync without explaicit locks , mutexes and all those things.
+
+channels block the execution of goroutines until thechannel resolves or else there might be the situations where there can be deadlocks 
+
+channels in golang are both buffered and nonbuffered(default) where in buffered the go routine is not blocked when there are availabel bufferes to store the value and vice versa buffered channels follows the queue order while reading or writing the data
+
+this is the basic declaration of channels
+
+```
+ch := make(chan string)
+ch <- 5
+val := <- ch
+close(ch)
+
+```
+
+
+
+
+
+
