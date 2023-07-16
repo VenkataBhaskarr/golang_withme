@@ -39,6 +39,17 @@ go routines are light weight and can be created so many when compared to OS thre
 
 goruntime has a scheduler which will multiplex the goroutines to the OS threads (m:n multiplexing)
 
+
+
+
+<img width="1424" alt="Screenshot 2023-07-13 at 7 54 09 PM" src="https://github.com/VenkataBhaskarr/golang_withme/assets/111889155/f9d69f25-fa21-4441-bbaf-651bd0219bf6">
+
+
+
+
+
+
+
 ## we have seen before in go routines the main go routine is exiting which results in undfortunate exiting of the subsequent go rouintes but we handled the problem with time.Sleep but we can solve it effictibvely
 
 here comes the process wait groups its a synchronization primitive offered by go runtime basically it waits for sync completion of treads
