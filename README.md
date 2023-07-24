@@ -106,6 +106,36 @@ close(ch)
 
 ```
 
+## Important go commands 
+
+go mod init <module_path_uniq>
+
+these will init a go module at the root dir making the dir as a go module
+
+go mod tidy
+
+this command ensures that go.mod file matches the source code in the module that is downloading/removing the packages
+
+go run <file>
+
+this command compiles and runs the progam internally it creates a exec file in temp location and launches and finally clears it when
+the app is exits
+
+go build
+
+this command compiles the packages names in the import part into an exe and stores in the root dir
+
+go start
+
+this is same as go build but it stores the exec in GOPATH/bin so that it is accessible from any path from the machine
+
+
+
+
+
+
+
+
 
 
 
