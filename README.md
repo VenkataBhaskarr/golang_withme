@@ -129,6 +129,71 @@ go start
 
 this is same as go build but it stores the exec in GOPATH/bin so that it is accessible from any path from the machine
 
+## how golang can be used to create a webserver
+
+First we will create a httpServer which listens on certain URL and it requires a handler 
+
+```
+    http.ListenAndServer(":8000" , handler)
+```
+
+If the handler is none it listense to the default ServeMux 
+
+what is defaut ServeMux ?
+
+well it is a multiplexer at which we can resgister routes with appropriate handlers and then the requests are routes to that particular 
+route handlers 
+
+whenver we use http.HandleFunc it will automatically registers the route-handler into the ServeMux 
+
+```
+    http.HandlerFunc("/" , handleHome)
+    http.ListenAndServer(":8000" , nil)
+```
+
+Now the handleHome is not directly resiterd in the mux insted it is agian passed into a black box functin called http.Handle where it is
+populated with two famous objects http.ResponseWriter, http.Request
+
+```
+    func handleHome(w http.ResponseWriter,r *http.Request){
+        fmt.Fprinf(w, "hello world")
+    }
+    http.HandlerFunc("/" , handleHome)
+    http.ListenAndServer(":8000" , nil)
+```
+
+why pointer ? just avoiding creating redunt space insted just using the request object originally
+
+
+
+
+## gin -  A powerful web framework for golang
+
+```
+func main() {
+	// ---- will create a http server
+	// ---- will create a ServeMux to handle requests to map to the handlers
+	// ---- will create handlers and attach them to SeveMux
+	// ---- will start the http server
+
+	// what does gin package does for us?
+
+	r := gin.Default() //  create a multiplexer(instance of gin Engine) with preconfigures middlewares for crash-free and req identification
+	r.GET("/ping", func(c *gin.Context) {
+		c.String(200, "hey baby")
+	}) // maps the request to the path and creates a handler and ataches it to the mulitplexer we created
+	// gin.Context encapsulates the request meta information and the required methods to handle respnse into a single interface
+	r.GET("/pong", func(c *gin.Context) {
+		c.String(200, "hey baby girl")
+	})
+	err := r.Run() // listens and serves the http server with the gin engine as the handler
+	if err != nil {
+		return
+	}
+}
+```
+
+
 
 
 
