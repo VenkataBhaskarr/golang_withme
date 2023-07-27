@@ -194,6 +194,55 @@ func main() {
 ```
 
 
+Working with databases
+
+sql databases
+
+In This walkthorugh we will see how to connect to mysql database locally, I just want to compare this with Node architecture to make it 
+simple to understand alright lets go
+
+In Node you use a package sql and define the CONSTANT (user , pass , db , localhost) and then connects it via sql.connect right In go 
+you have to one more additional step beacuese you know it is go go is go that is to install drivers there is package for the same 
+and you can run the aockage as a side effect to create the drivers which are ultimately used by your go runtime to make cahnge in the 
+database.
+
+first step download the sql drivers
+``` go get github.com/go-sql-driver/mysq ```
+
+Then,
+
+```
+import (
+	"fmt"				  
+	_ "github.com/go-sql-driver/mysql" 		 --------> underscore to run the pacakge as a side effect
+	"database/sql"			  		 --------> used to connect the driver and the database connection string
+)
+
+func main(){
+	connectionString := "blabla"  	 		 --------> This is connection string and it should be formatted in fmt.Sprintf("%v:%v@tcp(127.0.0.1:3306)/%v", "user_name", "pass_name", "db_name")
+	db := sql.Connect("mysql" , connectionString)	 --------> This will connect to the database and returns pointer to DB
+	query := db.Query("your_query")			 --------> Queries and returns *Row pointer which you cannot use directly to get the required results you need to beautify this in order to get the desired form of results
+	for query.Next() {
+		var (
+		    id int
+		    name string
+		)
+		query.Scan(&id , &name) 
+	}						---------> This whole code works as this assume the result from the Query is *Row lets say those are group of memory address where each of them represnt one item now we need to process each of them one by one
+and later some how dereferece it and store in our required variable, so query.Next() process the whole *Row pointer sub addresses one by one and then the then dereference every column address to the variables we declered using query.Scan()
+}
+	defer db.Close() 			        ---------> This will close the connection at the point of time when main function is exiting from the stack memory.
+
+```
+
+
+
+no sql databases
+
+In This walkthorugh we will see how to connect to mongodb atlas 
+
+
+
 
 
 
