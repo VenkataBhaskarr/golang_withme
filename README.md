@@ -198,7 +198,7 @@ Working with databases
 
 sql databases
 
-In This walkthorugh we will see how to connect to mysql database locally, I just want to compare this with Node architecture to make it 
+In This walk through we will see how to connect to mysql database locally, I just want to compare this with Node architecture to make it 
 simple to understand alright lets go
 
 In Node you use a package sql and define the CONSTANT (user , pass , db , localhost) and then connects it via sql.connect right In go 
